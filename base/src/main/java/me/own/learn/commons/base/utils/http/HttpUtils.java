@@ -35,17 +35,17 @@ public class HttpUtils {
 
     private static CloseableHttpClient httpclient = HttpClients.createDefault();
 
-    public static String postJson(Map<String, String> paramMap, String targetUrl) {
+    public static String postJsonStr(String paramMap, String targetUrl) {
         HttpPost httpPost = new HttpPost(targetUrl);
         httpPost.addHeader(HTTP.CONTENT_TYPE, "application/json");
         StringEntity se = null;
         try {
             ObjectMapper mapper = new ObjectMapper();
-            se = new StringEntity(mapper.writeValueAsString(paramMap));
+            se = new StringEntity(paramMap);
             se.setContentType("text/json");
             se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 
-        } catch (UnsupportedEncodingException | JsonProcessingException e) {
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         httpPost.setEntity(se);
